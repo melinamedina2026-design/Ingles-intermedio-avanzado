@@ -1,0 +1,1051 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Inglés Ejecutivo Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one centered column; each skill is its own colored room with its own monito guide. Tabs carry the room color. */
+:root{
+  --bg:#F5F6FB; --surface:#FFFFFF; --ink:#1D2033; --muted:#5E6378; --line:#E2E4EE; --on:#FFFFFF;
+  --hoy:#F0564A; --hoy-s:#FDE7E5;
+  --vocab:#3B6FF5; --vocab-s:#E4ECFE;
+  --frases:#8A5CF0; --frases-s:#EEE7FD;
+  --hablar:#12A57A; --hablar-s:#DDF5EC;
+  --quiz:#E8A500; --quiz-s:#FDF2D6;
+  --entrevista:#E0428C; --entrevista-s:#FCE3EF;
+  --corrector:#F07A2A; --corrector-s:#FDEADC;
+  --ok:#1E8A5A; --ok-s:#DFF4E8; --err:#C62F25; --err-s:#FCE6E4;
+  --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --f-body:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12141D; --surface:#1B1E2B; --ink:#ECEEF6; --muted:#A0A5BA; --line:#2C3042; --on:#14161F;
+  --hoy:#FF7A6E; --hoy-s:#3A2224; --vocab:#7FA0FF; --vocab-s:#1D2748; --frases:#B391FF; --frases-s:#2A2146;
+  --hablar:#3FD0A0; --hablar-s:#123629; --quiz:#FFC83D; --quiz-s:#3A3114; --entrevista:#FF77B3; --entrevista-s:#3B1C2E;
+  --corrector:#FF9E5E; --corrector-s:#3B2718; --ok:#5CD39A; --ok-s:#153527; --err:#FF8A80; --err-s:#3D1C1A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12141D; --surface:#1B1E2B; --ink:#ECEEF6; --muted:#A0A5BA; --line:#2C3042; --on:#14161F;
+  --hoy:#FF7A6E; --hoy-s:#3A2224; --vocab:#7FA0FF; --vocab-s:#1D2748; --frases:#B391FF; --frases-s:#2A2146;
+  --hablar:#3FD0A0; --hablar-s:#123629; --quiz:#FFC83D; --quiz-s:#3A3114; --entrevista:#FF77B3; --entrevista-s:#3B1C2E;
+  --corrector:#FF9E5E; --corrector-s:#3B2718; --ok:#5CD39A; --ok-s:#153527; --err:#FF8A80; --err-s:#3D1C1A; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55}
+.wrap{max-width:940px;margin:0 auto;padding-inline:16px;padding-block:20px 72px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(1.8rem,5vw,2.6rem);font-weight:800;letter-spacing:-.015em}
+h2{font-size:1.35rem;font-weight:700}
+p{margin:0}
+.label{font-family:var(--f-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.muted{color:var(--muted)}
+button,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sc,var(--vocab));outline-offset:2px}
+
+/* section color plumbing */
+#p-hoy{--sc:var(--hoy);--ss:var(--hoy-s)} #p-vocab{--sc:var(--vocab);--ss:var(--vocab-s)}
+#p-frases{--sc:var(--frases);--ss:var(--frases-s)} #p-hablar{--sc:var(--hablar);--ss:var(--hablar-s)}
+#p-quiz{--sc:var(--quiz);--ss:var(--quiz-s)} #p-entrevista{--sc:var(--entrevista);--ss:var(--entrevista-s)}
+#p-corrector{--sc:var(--corrector);--ss:var(--corrector-s)}
+#p-quiz .btn.primary{color:#1D2033}
+
+/* Header */
+header.top{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:flex-end;justify-content:space-between;padding-bottom:18px}
+.title-block{min-width:0;flex:1 1 380px}
+.title-block h1 span{background:linear-gradient(90deg,var(--hoy),var(--entrevista) 40%,var(--frases) 70%,var(--vocab));-webkit-background-clip:text;background-clip:text;color:transparent}
+.role{margin-top:8px;color:var(--muted);max-width:58ch}
+.gang{display:flex;align-items:flex-end;margin-top:12px}
+.gang .monito{margin-right:-8px}
+.stats{display:flex;gap:10px;flex-wrap:wrap}
+.stat{background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:8px 14px;min-width:100px}
+.stat b{display:block;font-family:var(--f-display);font-size:1.45rem;font-variant-numeric:tabular-nums}
+.stat:nth-child(1) b{color:var(--hoy)} .stat:nth-child(2) b{color:var(--vocab)} .stat:nth-child(3) b{color:var(--quiz)}
+
+/* Tabs */
+nav.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;margin-bottom:18px;scrollbar-width:thin}
+nav.tabs button{--tc:var(--vocab);--ts:var(--vocab-s);display:flex;align-items:center;gap:6px;background:var(--surface);border:2px solid var(--line);border-radius:999px;padding:7px 14px 7px 10px;cursor:pointer;white-space:nowrap;font-weight:700;color:var(--muted)}
+nav.tabs button i{width:12px;height:12px;border-radius:50%;background:var(--tc);flex:none}
+nav.tabs button[aria-selected="true"]{background:var(--ts);border-color:var(--tc);color:var(--ink)}
+nav.tabs button:hover{border-color:var(--tc)}
+nav.tabs [data-tab="hoy"]{--tc:var(--hoy);--ts:var(--hoy-s)} nav.tabs [data-tab="vocab"]{--tc:var(--vocab);--ts:var(--vocab-s)}
+nav.tabs [data-tab="frases"]{--tc:var(--frases);--ts:var(--frases-s)} nav.tabs [data-tab="hablar"]{--tc:var(--hablar);--ts:var(--hablar-s)}
+nav.tabs [data-tab="quiz"]{--tc:var(--quiz);--ts:var(--quiz-s)} nav.tabs [data-tab="entrevista"]{--tc:var(--entrevista);--ts:var(--entrevista-s)}
+nav.tabs [data-tab="corrector"]{--tc:var(--corrector);--ts:var(--corrector-s)}
+
+.panel{display:grid;gap:18px}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:20px;min-width:0}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 16px;cursor:pointer;font-weight:700}
+.btn:hover{border-color:var(--sc)}
+.btn.primary{background:var(--sc);color:var(--on);border-color:var(--sc)}
+.btn.ok{background:var(--ok);color:var(--on);border-color:var(--ok)}
+.btn:disabled{opacity:.5;cursor:default}
+.icon-btn{border:2px solid var(--line);background:var(--surface);border-radius:999px;width:38px;height:38px;display:inline-grid;place-items:center;cursor:pointer;flex:none;color:var(--sc,var(--ink))}
+.icon-btn:hover{border-color:var(--sc)}
+.icon-btn svg{width:16px;height:16px;fill:currentColor}
+.icon-btn.es{width:auto;padding:0 10px;gap:4px;display:inline-flex;font-family:var(--f-mono);font-size:.7rem;font-weight:500}
+.icon-btn.es svg{width:12px;height:12px}
+.chip{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;cursor:pointer;font-size:.92rem;font-weight:600}
+.chip[aria-pressed="true"]{background:var(--ss);border-color:var(--sc)}
+.pill{display:inline-block;font-family:var(--f-mono);font-size:.74rem;padding:3px 9px;border-radius:999px;background:var(--ss);color:var(--ink)}
+
+/* Buddy (monito + speech bubble) */
+.buddy{display:flex;gap:14px;align-items:center;background:var(--ss);border-radius:var(--r);padding:14px 18px}
+.buddy .monito{flex:none}
+.bubble{background:var(--surface);border-radius:14px;padding:10px 14px;position:relative;min-width:0;flex:1}
+.bubble::before{content:"";position:absolute;left:-8px;top:50%;margin-top:-8px;border:8px solid transparent;border-left:0;border-right-color:var(--surface)}
+.bubble b{font-family:var(--f-display);color:var(--sc)}
+.monito{display:block;overflow:visible}
+.monito .bob{animation:bob 3.2s ease-in-out infinite;transform-origin:50% 90%}
+.monito.jump .bob{animation:jump .6s ease-out 2}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes jump{0%,100%{transform:translateY(0) scale(1)}40%{transform:translateY(-12px) scale(1.04,.96)}}
+.gang .monito:nth-child(2) .bob{animation-delay:-.6s} .gang .monito:nth-child(3) .bob{animation-delay:-1.2s}
+.gang .monito:nth-child(4) .bob{animation-delay:-1.8s} .gang .monito:nth-child(5) .bob{animation-delay:-2.4s}
+
+/* Today */
+.plan{display:grid;gap:8px;list-style:none;padding:0;margin:12px 0 0}
+.plan li{display:flex;gap:12px;align-items:center;padding:10px 12px;border:2px solid var(--line);border-radius:12px}
+.plan li.done{background:var(--ok-s);border-color:transparent}
+.plan .dot{width:14px;height:14px;border-radius:50%;flex:none}
+.plan .check{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;flex:none;font-size:.8rem;font-weight:700;color:var(--on)}
+.plan li.done .check{background:var(--ok);border-color:var(--ok)}
+.plan .t{flex:1;min-width:0}
+.plan .min{font-family:var(--f-mono);font-size:.8rem;color:var(--muted);white-space:nowrap}
+.plan a{color:var(--ink);cursor:pointer;font-weight:600;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px}
+.stack{display:grid;gap:18px;align-content:start}
+.bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--vocab),var(--frases));border-radius:99px;transition:width .3s}
+.week{display:flex;gap:6px;margin-top:10px}
+.week span{flex:1;text-align:center;font-family:var(--f-mono);font-size:.7rem;color:var(--muted)}
+.week span i{display:block;height:28px;border-radius:8px;background:var(--line);margin-bottom:4px}
+.week span i.on{background:var(--hoy)}
+
+/* Flashcards */
+.flash{min-height:250px;display:grid;align-content:center;gap:12px;text-align:center;cursor:pointer;position:relative;border-color:var(--sc)}
+.flash .term{font-family:var(--f-display);font-size:clamp(1.6rem,5vw,2.4rem);font-weight:800;color:var(--sc)}
+.flash .es{font-size:1.2rem;font-weight:700}
+.flash .ex{font-style:italic;max-width:52ch;margin:0 auto}
+.flash .corner{position:absolute;top:14px;left:16px}
+.flash .known{position:absolute;top:14px;right:16px;font-family:var(--f-mono);font-size:.72rem;color:var(--ok)}
+.counter{font-family:var(--f-mono);font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* Phrases */
+.ph-group{display:grid;gap:8px}
+.ph{display:flex;gap:10px;align-items:center;padding:12px 14px;background:var(--surface);border:2px solid var(--line);border-radius:12px}
+.ph .t{flex:1;min-width:0}
+.ph .en{font-weight:700}
+.ph .es{color:var(--muted);font-size:.93rem}
+
+/* Quiz */
+.opts{display:grid;gap:8px;margin-top:14px}
+.opt{text-align:left;border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:12px 14px;cursor:pointer;font-weight:600}
+.opt:hover:not(:disabled){border-color:var(--sc)}
+.opt.right{background:var(--ok-s);border-color:var(--ok)}
+.opt.wrong{background:var(--err-s);border-color:var(--err)}
+.qtext{font-size:1.15rem;margin-top:6px}
+
+/* Speaking */
+.target{font-family:var(--f-display);font-size:clamp(1.25rem,3.6vw,1.6rem);font-weight:700;line-height:1.35;flex:1;min-width:0}
+.words{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.words span{padding:3px 9px;border-radius:8px;font-weight:700}
+.words .hit{background:var(--ok-s);color:var(--ok)}
+.words .miss{background:var(--err-s);color:var(--err);text-decoration:underline wavy}
+.timer{font-family:var(--f-mono);font-size:1.6rem;font-variant-numeric:tabular-nums;color:var(--sc)}
+.howto{display:grid;gap:6px;padding:12px 14px;border-radius:12px;border:2px dashed var(--sc)}
+.howto kbd{font-family:var(--f-mono);font-size:.8rem;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 6px;background:var(--bg)}
+.rec-on{animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 6px var(--ss)}}
+
+/* Interview / writing */
+textarea{width:100%;min-height:140px;border:2px solid var(--line);background:var(--bg);border-radius:12px;padding:12px;resize:vertical;line-height:1.5}
+textarea:focus{border-color:var(--sc);outline:none}
+select{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 12px;max-width:100%}
+.question{font-family:var(--f-display);font-size:1.3rem;font-weight:700;flex:1;min-width:0}
+details summary{cursor:pointer;color:var(--sc);font-weight:700}
+details p{margin-top:6px}
+.fb{display:grid;gap:16px;border-color:var(--sc)}
+.score{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.score b{font-family:var(--f-display);font-size:2.3rem;font-variant-numeric:tabular-nums;color:var(--sc)}
+.errs{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.errs li{padding:10px 12px;border:2px solid var(--line);border-radius:12px}
+.errs del{color:var(--err)}
+.errs ins{color:var(--ok);text-decoration:none;font-weight:700}
+.errs .why{font-size:.92rem;color:var(--muted);margin-top:2px}
+.better{background:var(--ss);border-radius:12px;padding:14px}
+.status{color:var(--muted);font-style:italic}
+.notice{padding:12px 14px;border-radius:12px;background:var(--err-s);color:var(--ink)}
+.voice-note{font-size:.9rem;padding:10px 12px;border-radius:12px;background:var(--bg)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-weight:700;max-width:calc(100% - 32px)}
+@media (max-width:520px){.buddy{padding:12px}.buddy .monito{width:56px;height:56px}}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="title-block">
+      <span class="label">Preparación · inglés B2 → C1</span>
+      <h1>Inglés <span>Ejecutivo Digital</span></h1>
+      <p class="role">Entrenamiento diario para el cargo <b>Jefe Digital Contracting y Web Pública</b>: vocabulario de banca digital, frases, práctica oral y entrevista con corrección.</p>
+      <div class="gang" id="gang"></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><span class="label">Racha</span><b id="st-streak">0</b></div>
+      <div class="stat"><span class="label">Palabras</span><b id="st-words">0</b></div>
+      <div class="stat"><span class="label">Mejor quiz</span><b id="st-quiz">–</b></div>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" id="tabs">
+    <button role="tab" data-tab="hoy" aria-selected="true"><i></i>Hoy</button>
+    <button role="tab" data-tab="vocab" aria-selected="false"><i></i>Vocabulario</button>
+    <button role="tab" data-tab="frases" aria-selected="false"><i></i>Frases</button>
+    <button role="tab" data-tab="hablar" aria-selected="false"><i></i>Hablar</button>
+    <button role="tab" data-tab="quiz" aria-selected="false"><i></i>Quiz</button>
+    <button role="tab" data-tab="entrevista" aria-selected="false"><i></i>Entrevista</button>
+    <button role="tab" data-tab="corrector" aria-selected="false"><i></i>Corrector</button>
+  </nav>
+
+  <!-- HOY -->
+  <section class="panel" id="p-hoy">
+    <div class="buddy" data-buddy="hoy"></div>
+    <div class="grid2">
+      <div class="card">
+        <span class="label" id="today-date"></span>
+        <h2>Rutina de 45 minutos</h2>
+        <p class="muted">Cada tarea se marca sola cuando la completas. La fluidez sale de practicar todos los días, aunque sea un rato.</p>
+        <ul class="plan" id="plan"></ul>
+      </div>
+      <div class="stack">
+        <div class="card">
+          <span class="label">Últimos 7 días</span>
+          <div class="week" id="week"></div>
+        </div>
+        <div class="card">
+          <span class="label">Dominio del vocabulario</span>
+          <p style="margin-top:4px"><b id="dom-n">0</b> de <span id="dom-t">0</span> términos del cargo</p>
+          <div class="bar"><i id="dom-bar" style="width:0"></i></div>
+        </div>
+        <div class="card">
+          <div class="row" style="justify-content:space-between;flex-wrap:nowrap"><span class="label">Consejo del día</span><button class="icon-btn es" id="tip-say" aria-label="Escuchar consejo con voz chilena"></button></div>
+          <p id="tip" style="margin-top:6px"></p>
+        </div>
+        <div class="card">
+          <span class="label">Voz en español</span>
+          <p class="voice-note" id="voice-note" style="margin-top:8px"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOCAB -->
+  <section class="panel" id="p-vocab" hidden>
+    <div class="buddy" data-buddy="vocab"></div>
+    <div class="row" id="cats"></div>
+    <div class="row" style="justify-content:space-between">
+      <label class="row" style="gap:6px;cursor:pointer"><input type="checkbox" id="only-pending"> Solo pendientes</label>
+      <span class="counter" id="v-count"></span>
+    </div>
+    <div class="card flash" id="flash" tabindex="0" aria-live="polite"></div>
+    <div class="row" style="justify-content:center">
+      <button class="btn" id="v-prev">← Anterior</button>
+      <button class="btn" id="v-again">Repasar de nuevo</button>
+      <button class="btn ok" id="v-know">Ya me la sé ✓</button>
+      <button class="btn" id="v-next">Siguiente →</button>
+    </div>
+  </section>
+
+  <!-- FRASES -->
+  <section class="panel" id="p-frases" hidden>
+    <div class="buddy" data-buddy="frases"></div>
+    <div class="card">
+      <div class="row">
+        <span class="label">Velocidad del inglés</span>
+        <button class="chip" data-rate="0.75">Lenta</button>
+        <button class="chip" data-rate="0.95">Normal</button>
+        <button class="chip" data-rate="1.1">Rápida</button>
+      </div>
+    </div>
+    <div id="phrases" class="panel"></div>
+  </section>
+
+  <!-- HABLAR -->
+  <section class="panel" id="p-hablar" hidden>
+    <div class="buddy" data-buddy="hablar"></div>
+    <div class="row">
+      <button class="chip" data-mode="leer" aria-pressed="true">Leer en voz alta</button>
+      <button class="chip" data-mode="libre" aria-pressed="false">Hablar libre · 1 minuto</button>
+    </div>
+    <div class="howto" id="howto">
+      <b>Cómo hablarle a la app</b>
+      <p id="mic-line">Presiona <b>Grabar</b> y habla en inglés. Si el navegador no deja usar el micrófono, usa el dictado de tu equipo:</p>
+      <p>• <b>Windows:</b> haz clic en el cuadro de texto y presiona <kbd>Win</kbd> + <kbd>H</kbd>. • <b>Celular:</b> toca el micrófono del teclado. Configura el dictado en <b>English (US)</b> para que transcriba en inglés.</p>
+    </div>
+
+    <div class="card" id="sp-leer" style="display:grid;gap:14px">
+      <div class="row" style="justify-content:space-between">
+        <span class="label" id="rd-count"></span>
+        <button class="btn" id="rd-next">Otra frase</button>
+      </div>
+      <div class="row" style="align-items:flex-start;flex-wrap:nowrap">
+        <p class="target" id="rd-target"></p>
+        <button class="icon-btn" id="rd-play" aria-label="Escuchar cómo se dice"></button>
+      </div>
+      <p class="muted" id="rd-tip"></p>
+      <label for="rd-said" class="label">Lo que dijiste</label>
+      <textarea id="rd-said" style="min-height:90px" placeholder="Aquí aparece lo que dices…"></textarea>
+      <div class="row" style="justify-content:flex-end">
+        <button class="btn" id="rd-rec">● Grabar</button>
+        <button class="btn primary" id="rd-check">Revisar cómo lo dije</button>
+      </div>
+      <div id="rd-out"></div>
+    </div>
+
+    <div class="card" id="sp-libre" style="display:grid;gap:14px" hidden>
+      <div class="row" style="justify-content:space-between">
+        <span class="label">Responde hablando, sin leer</span>
+        <button class="btn" id="fr-next">Otro tema</button>
+      </div>
+      <div class="row" style="align-items:flex-start;flex-wrap:nowrap">
+        <p class="question" id="fr-q"></p>
+        <button class="icon-btn" id="fr-play" aria-label="Escuchar la pregunta"></button>
+      </div>
+      <div class="row" style="justify-content:space-between">
+        <span class="timer" id="fr-timer">0:00</span>
+        <div class="row">
+          <button class="btn" id="fr-rec">● Grabar</button>
+          <button class="btn" id="fr-start">Iniciar cronómetro</button>
+        </div>
+      </div>
+      <label for="fr-said" class="label">Transcripción de lo que dijiste</label>
+      <textarea id="fr-said" placeholder="Habla durante un minuto. Tu transcripción aparece aquí…"></textarea>
+      <div class="row" style="justify-content:space-between">
+        <span class="counter" id="fr-count">0 palabras</span>
+        <div class="row">
+          <button class="btn" id="fr-stop" hidden>Detener</button>
+          <button class="btn primary" id="fr-send">¿Cómo lo hice?</button>
+        </div>
+      </div>
+    </div>
+    <div id="fr-out"></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="panel" id="p-quiz" hidden>
+    <div class="buddy" data-buddy="quiz"></div>
+    <div class="card" id="quiz"></div>
+  </section>
+
+  <!-- ENTREVISTA -->
+  <section class="panel" id="p-entrevista" hidden>
+    <div class="buddy" data-buddy="entrevista"></div>
+    <div class="card" style="display:grid;gap:14px">
+      <div class="row" style="justify-content:space-between">
+        <span class="label">Simulador de entrevista</span>
+        <div class="row">
+          <select id="q-select" aria-label="Elegir pregunta"></select>
+          <button class="btn" id="q-random">Otra pregunta</button>
+        </div>
+      </div>
+      <div class="row" style="align-items:flex-start;flex-wrap:nowrap">
+        <p class="question" id="q-text"></p>
+        <button class="icon-btn" id="q-play" aria-label="Escuchar pregunta"></button>
+      </div>
+      <details><summary>Cómo armar tu respuesta</summary><p id="q-hint"></p></details>
+      <label for="answer" class="label">Tu respuesta en inglés (escríbela o díctala)</label>
+      <textarea id="answer" placeholder="Write your answer here, as you would say it in the interview..."></textarea>
+      <div class="row" style="justify-content:space-between">
+        <span class="counter" id="a-count">0 palabras · ideal 80–150</span>
+        <div class="row">
+          <button class="btn" id="a-stop" hidden>Detener</button>
+          <button class="btn primary" id="a-send">Recibir feedback</button>
+        </div>
+      </div>
+    </div>
+    <div id="a-out"></div>
+  </section>
+
+  <!-- CORRECTOR -->
+  <section class="panel" id="p-corrector" hidden>
+    <div class="buddy" data-buddy="corrector"></div>
+    <div class="card" style="display:grid;gap:14px">
+      <label for="w-text" class="label">Tu texto <span id="w-sample-tag">(ejemplo cargado, reemplázalo por el tuyo)</span></label>
+      <textarea id="w-text">I am working in digital channels since 2019 and I am responsible of the contracting process for consumer loans. Last year we have launched a new onboarding that reduced the drop-off in 20%. I want to apply to this position because I am very passionate for simplify the customer experience.</textarea>
+      <div class="row" style="justify-content:flex-end">
+        <button class="btn" id="w-stop" hidden>Detener</button>
+        <button class="btn primary" id="w-send">Corregir texto</button>
+      </div>
+    </div>
+    <div id="w-out"></div>
+  </section>
+</div>
+
+<script>
+/* ---------- Monitos ---------- */
+function monito(color, o={}){
+  const mood=o.mood||"happy", acc=o.acc||"", size=o.size||76, D="#1B1B2A";
+  const look = mood==="think" ? [2,-3] : [0,0];
+  const pr = mood==="wow" ? 6 : 5;
+  const mouths = {
+    happy:`<path d="M39 64 Q50 77 61 64 Z" fill="${D}"/><path d="M44 69 Q50 73 56 69" fill="#FF6F8A"/>`,
+    wow:`<ellipse cx="50" cy="68" rx="5.5" ry="7" fill="${D}"/>`,
+    think:`<path d="M43 68 Q50 64 58 69" stroke="${D}" stroke-width="3" fill="none" stroke-linecap="round"/>`,
+    sad:`<path d="M41 71 Q50 63 59 71" stroke="${D}" stroke-width="3" fill="none" stroke-linecap="round"/>`
+  };
+  const raise = mood==="happy" || mood==="wow";
+  const accs = {
+    glasses:`<g stroke="${D}" stroke-width="2.5" fill="none"><circle cx="38" cy="48" r="12"/><circle cx="62" cy="48" r="12"/><path d="M50 47 h0.1"/></g><path d="M48 46 Q50 44 52 46" stroke="${D}" stroke-width="2.5" fill="none"/>`,
+    headphones:`<path d="M18 52 Q18 10 50 10 Q82 10 82 52" stroke="${D}" stroke-width="5" fill="none"/><rect x="11" y="44" width="11" height="18" rx="5" fill="${D}"/><rect x="78" y="44" width="11" height="18" rx="5" fill="${D}"/>`,
+    mic:`<g transform="translate(84 36) rotate(20)"><rect x="-3" y="4" width="6" height="16" rx="2" fill="#3A3D52"/><circle cx="0" cy="0" r="7" fill="#9AA0B5"/><path d="M-5 -2 h10 M-5 2 h10" stroke="#6A7088" stroke-width="1.2"/></g>`,
+    pencil:`<g transform="translate(86 34) rotate(30)"><rect x="-3.5" y="-16" width="7" height="26" fill="#FFC83D"/><rect x="-3.5" y="-20" width="7" height="5" rx="1.5" fill="#FF8FA3"/><path d="M-3.5 10 L0 18 L3.5 10 Z" fill="#F2D3A2"/><path d="M-1.2 15.5 L0 18 L1.2 15.5 Z" fill="${D}"/></g>`,
+    star:`<path d="M50 -2 l4 8.5 9.3 1.2 -6.8 6.4 1.7 9.2 -8.2 -4.5 -8.2 4.5 1.7 -9.2 -6.8 -6.4 9.3 -1.2 z" fill="#FFC83D" stroke="#E0A000" stroke-width="1.2"/>`,
+    tie:`<path d="M40 82 L50 78 L60 82 L50 86 Z" fill="#FFFFFF"/><path d="M47 84 h6 l-1 3 h-4 z" fill="#2B2D42"/><path d="M48 87 h4 l3 11 -5 4 -5 -4 z" fill="#2B2D42"/>`,
+    flag:`<g transform="translate(80 18)"><path d="M2 0 V36" stroke="#6A7088" stroke-width="2.5" stroke-linecap="round"/><rect x="3" y="1" width="22" height="7" fill="#FFFFFF"/><rect x="3" y="8" width="22" height="7" fill="#D52B1E"/><rect x="3" y="1" width="8" height="7" fill="#0039A6"/><circle cx="7" cy="4.5" r="1.6" fill="#FFFFFF"/><rect x="3" y="1" width="22" height="14" fill="none" stroke="#C9CCD8" stroke-width=".6"/></g>`
+  };
+  return `<svg class="monito${o.jump?" jump":""}" viewBox="0 -6 100 108" width="${size}" height="${size}" aria-hidden="true">
+   <ellipse cx="50" cy="99" rx="26" ry="4" fill="${D}" opacity=".12"/>
+   <g class="bob">
+    <path d="M50 16 Q44 4 54 5" stroke="${color}" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <ellipse cx="38" cy="92" rx="9" ry="5" fill="${color}"/><ellipse cx="62" cy="92" rx="9" ry="5" fill="${color}"/>
+    <ellipse cx="15" cy="64" rx="6" ry="11" transform="rotate(25 15 64)" fill="${color}"/>
+    ${raise?`<ellipse cx="85" cy="44" rx="6" ry="11" transform="rotate(-35 85 44)" fill="${color}"/>`:`<ellipse cx="85" cy="64" rx="6" ry="11" transform="rotate(-25 85 64)" fill="${color}"/>`}
+    <path d="M50 14 C77 14 86 34 86 56 C86 79 71 91 50 91 C29 91 14 79 14 56 C14 34 23 14 50 14Z" fill="${color}"/>
+    <ellipse cx="50" cy="76" rx="21" ry="12" fill="#FFFFFF" opacity=".25"/>
+    <ellipse cx="27" cy="62" rx="6" ry="3.5" fill="#FF8FA3" opacity=".6"/><ellipse cx="73" cy="62" rx="6" ry="3.5" fill="#FF8FA3" opacity=".6"/>
+    <circle cx="38" cy="48" r="10" fill="#FFFFFF"/><circle cx="62" cy="48" r="10" fill="#FFFFFF"/>
+    <circle cx="${38+look[0]}" cy="${49+look[1]}" r="${pr}" fill="${D}"/><circle cx="${62+look[0]}" cy="${49+look[1]}" r="${pr}" fill="${D}"/>
+    <circle cx="${40+look[0]}" cy="${47+look[1]}" r="1.8" fill="#FFFFFF"/><circle cx="${64+look[0]}" cy="${47+look[1]}" r="1.8" fill="#FFFFFF"/>
+    ${mood==="sad"?`<path d="M30 37 L44 40 M70 37 L56 40" stroke="${D}" stroke-width="2.5" stroke-linecap="round"/>`:""}
+    ${mouths[mood]||mouths.happy}
+    ${accs[acc]||""}
+   </g></svg>`;
+}
+const BUDDIES = {
+  hoy:{name:"Tito", acc:"flag", c:"--hoy", text:"¡Hola! Soy Tito. Hoy toca practicar un ratito de cada cosa. ¡Vamos que se puede!"},
+  vocab:{name:"Pancha", acc:"glasses", c:"--vocab", text:"Toca la tarjeta para ver la traducción. Escucha el ejemplo y repítelo en voz alta, sin vergüenza."},
+  frases:{name:"Lucho", acc:"headphones", c:"--frases", text:"Esto es shadowing: escuchas la frase y la repites al tiro, imitando el ritmo. Cinco frases al día y vas a notar la diferencia."},
+  hablar:{name:"Coti", acc:"mic", c:"--hablar", text:"¡Ahora te toca hablar a ti! Lee la frase en voz alta o habla un minuto, y yo te digo cómo te fue."},
+  quiz:{name:"Benja", acc:"star", c:"--quiz", text:"Diez preguntas rapiditas. ¡A ver cuánto te sabes!"},
+  entrevista:{name:"Vale", acc:"tie", c:"--entrevista", text:"Soy la entrevistadora. Responde como si estuvieras en la entrevista de verdad, con ejemplos y cifras."},
+  corrector:{name:"Nacho", acc:"pencil", c:"--corrector", text:"Pega un correo, un mensaje o tu pitch. Te lo devuelvo corregido y te explico cada error."}
+};
+const cssVar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim() || "#3B6FF5";
+function buddy(sec, text, mood, jump){
+  const b = BUDDIES[sec]; const el = document.querySelector(`[data-buddy="${sec}"]`); if (!el) return;
+  el.innerHTML = monito(cssVar(b.c), {acc:b.acc, mood:mood||"happy", jump}) +
+    `<div class="bubble"><b>${b.name}</b><p>${esc(text||b.text)}</p></div>`;
+}
+function renderBuddies(){
+  Object.keys(BUDDIES).forEach(k => buddy(k));
+  $("#gang").innerHTML = ["hoy","vocab","frases","hablar","entrevista"].map(k => monito(cssVar(BUDDIES[k].c), {acc:BUDDIES[k].acc, size:52})).join("");
+}
+
+/* ---------- Content ---------- */
+const CATS = {c:"Contratación digital", w:"Web pública", b:"Banca y regulación", l:"Liderazgo"};
+const VOCAB = [
+ ["digital contracting","contratación digital","Digital contracting lets customers open an account without visiting a branch.","c"],
+ ["electronic signature","firma electrónica","The customer signs the loan agreement with an electronic signature.","c"],
+ ["advanced electronic signature","firma electrónica avanzada","Some mortgage documents require an advanced electronic signature.","c"],
+ ["onboarding","incorporación de clientes","We reduced onboarding time from three days to fifteen minutes.","c"],
+ ["identity verification","verificación de identidad","Identity verification uses a selfie and the national ID card.","c"],
+ ["terms and conditions","términos y condiciones","Customers must accept the terms and conditions before signing.","c"],
+ ["drop-off rate","tasa de abandono","The drop-off rate is highest on the income verification step.","c"],
+ ["end-to-end","de punta a punta","My team owns the end-to-end contracting journey.","c"],
+ ["customer journey","recorrido del cliente","We mapped the customer journey for credit cards.","c"],
+ ["paperless","sin papel","Our goal is a fully paperless process.","c"],
+ ["audit trail","registro de auditoría","Every signature leaves a complete audit trail.","c"],
+ ["to roll out","implementar, desplegar","We will roll out the new flow in March.","c"],
+ ["public website","sitio web público","The public website receives two million visits a month.","w"],
+ ["conversion rate","tasa de conversión","The conversion rate improved by 12 percent after the redesign.","w"],
+ ["landing page","página de aterrizaje","Each campaign has its own landing page.","w"],
+ ["A/B testing","pruebas A/B","We use A/B testing to compare two versions of the form.","w"],
+ ["user experience","experiencia de usuario","A clear user experience builds trust.","w"],
+ ["accessibility","accesibilidad","Accessibility is a requirement, not a nice-to-have.","w"],
+ ["SEO","posicionamiento en buscadores","Good SEO brings organic traffic to our product pages.","w"],
+ ["content management system","gestor de contenidos","Marketing updates the site through the content management system.","w"],
+ ["bounce rate","tasa de rebote","The bounce rate on the mortgage page is too high.","w"],
+ ["funnel","embudo de conversión","We lose most users at the top of the funnel.","w"],
+ ["web analytics","analítica web","Web analytics shows exactly where users drop off.","w"],
+ ["uptime","disponibilidad del servicio","We guarantee 99.9% uptime for the website.","w"],
+ ["compliance","cumplimiento normativo","Compliance must approve every change to the contract.","b"],
+ ["regulator","regulador, como la CMF","The regulator sets the rules for digital channels.","b"],
+ ["know your customer","conoce a tu cliente","Know your customer checks are mandatory before opening an account.","b"],
+ ["anti-money laundering","prevención de lavado de activos","Anti-money laundering controls apply to every new customer.","b"],
+ ["data privacy","privacidad de datos","Data privacy is a top priority for the bank.","b"],
+ ["cybersecurity","ciberseguridad","We work closely with the cybersecurity team on every release.","b"],
+ ["consumer loan","crédito de consumo","Customers can apply for a consumer loan online in five minutes.","b"],
+ ["checking account","cuenta corriente","Opening a checking account now takes ten minutes.","b"],
+ ["legal team","fiscalía, el área legal","The legal team reviews every contract template.","b"],
+ ["risk appetite","apetito de riesgo","The new flow must stay within the bank's risk appetite.","b"],
+ ["stakeholder","parte interesada","I meet key stakeholders every week to review progress.","l"],
+ ["roadmap","hoja de ruta","The roadmap covers the next four quarters.","l"],
+ ["backlog","lista priorizada de pendientes","We prioritize the backlog together with the product owner.","l"],
+ ["KPI","indicador clave de gestión","Our main KPI is the share of products sold digitally.","l"],
+ ["to align","alinear","We need to align the business and technology teams.","l"],
+ ["trade-off","compromiso entre opciones","Every release involves a trade-off between speed and risk.","l"],
+ ["cross-functional team","equipo multidisciplinario","I lead a cross-functional team of twelve people.","l"],
+ ["deadline","plazo, fecha límite","We met the deadline despite the regulatory changes.","l"],
+ ["to escalate","escalar un problema","If a blocker lasts more than two days, we escalate it.","l"],
+ ["business case","caso de negocio","I presented the business case to the steering committee.","l"],
+ ["to lead by example","liderar con el ejemplo","I try to lead by example, especially under pressure.","l"],
+ ["ownership","sentido de dueño, hacerse cargo","I expect ownership from every member of my team.","l"]
+].map(([en,es,ex,cat],i)=>({id:i,en,es,ex,cat}));
+
+const PHRASES = {
+ "Presentarte y entrevista":[
+  ["In my current role, I'm responsible for the digital sales journey.","En mi cargo actual, estoy a cargo del recorrido de venta digital."],
+  ["One of my biggest achievements was cutting onboarding time by half.","Uno de mis mayores logros fue bajar a la mitad el tiempo de incorporación."],
+  ["My team delivered a thirty percent increase in digital sales.","Mi equipo logró subir en un treinta por ciento las ventas digitales."],
+  ["I'm passionate about making banking simple for customers.","Me apasiona hacerle la banca más simple a los clientes."],
+  ["That's a great question. Let me think about it for a second.","Buena pregunta. Déjeme pensarlo un segundo."],
+  ["Sorry, could you repeat the question?","Perdón, ¿me podría repetir la pregunta?"]
+ ],
+ "Reuniones":[
+  ["Let me walk you through the results.","Les cuento los resultados paso a paso."],
+  ["I'd like to build on what Carolina just said.","Me gustaría complementar lo que dijo recién la Carolina."],
+  ["Could you clarify what you mean by that?","¿Me podrías aclarar a qué te refieres con eso?"],
+  ["From my perspective, the main risk is the timeline.","A mi juicio, el principal riesgo son los plazos."],
+  ["Let's take this offline.","Veámoslo después, fuera de la reunión."],
+  ["I'll follow up by email with the next steps.","Les mando un correo con los próximos pasos."],
+  ["To sum up, we have three decisions to make today.","En resumen, hoy tenemos que tomar tres decisiones."]
+ ],
+ "Liderar y reportar":[
+  ["We're on track to deliver by the end of the quarter.","Vamos bien para entregar a fin de trimestre."],
+  ["We're behind schedule, and here's our plan to recover.","Vamos atrasados, y este es el plan para ponernos al día."],
+  ["I take full ownership of this decision.","Me hago cargo completamente de esta decisión."],
+  ["What would success look like for you?","¿Qué sería para ti que esto saliera bien?"],
+  ["Let's agree on a realistic timeline.","Pongámonos de acuerdo en un plazo realista."]
+ ],
+ "Negociar y discrepar":[
+  ["I see your point, but I'd push back a little on that.","Entiendo tu punto, pero no estoy tan de acuerdo con eso."],
+  ["What are the non-negotiables here?","¿Qué es lo que no se transa aquí?"],
+  ["Could we find a middle ground?","¿Podríamos llegar a un punto medio?"],
+  ["I need to check with Compliance before I commit.","Tengo que consultarlo con Cumplimiento antes de comprometerme."]
+ ]
+};
+
+const READ = [
+ ["I have three years of experience leading digital transformation projects.","Ojo con «three»: la lengua va entre los dientes, no es «tri». Y «experience» se dice «ex-PI-rience»."],
+ ["We launched the new electronic signature flow in thirty days.","«Thirty» también lleva la lengua entre los dientes. En «launched» la -ed suena como «t»: «launcht»."],
+ ["Our public website is the bank's most valuable digital channel.","En inglés la «v» de «valuable» se hace con los dientes sobre el labio, no como «b»."],
+ ["I believe the customer journey should be simple, safe and fast.","«Journey» empieza con sonido «ch» suave: «YER-ni». «Should» no pronuncia la «l»."],
+ ["Compliance and the legal team were involved from the very beginning.","«Compliance» se acentúa en «PLAI». Fíjate en la «v» de «involved» y «very»."],
+ ["We increased the conversion rate while reducing operational risk.","«Increased» termina en «st». «Rate» suena «reit», con diptongo."],
+ ["I work closely with stakeholders across the organization.","«Work» no es «wok»: la «r» se nota. «Closely» suena «KLOUS-li»."],
+ ["This quarter, our priority is to reduce the drop-off rate in onboarding.","«Quarter» suena «KUOR-ter». «Priority» se acentúa en la segunda sílaba: «prai-OR-iti»."],
+ ["Thank you for the opportunity. I'm very excited about this role.","«Thank» lleva la lengua entre los dientes. «Role» suena como «roul»."],
+ ["My team delivered a thirty percent increase in digital sales.","«Delivered» termina en sonido «d». No digas «eh-sales»: la «s» inicial va sin «e» antes."]
+];
+const FREE = [
+ "Tell me about yourself.",
+ "Describe your current job in one minute.",
+ "Tell me about your team and how you lead it.",
+ "Describe a project you are proud of.",
+ "Why are you a good fit for a role in digital contracting?",
+ "How would you improve a bank's public website?",
+ "What did you do last week at work?",
+ "Explain the customer journey to open an account online."
+];
+
+const QUESTIONS = [
+ ["Tell me about yourself.","Estructura presente → pasado → futuro. Tu cargo actual y tu logro principal, cómo llegaste ahí, y por qué este cargo es el paso siguiente. Máximo 90 segundos."],
+ ["Why do you want to be Head of Digital Contracting and Public Website at our bank?","Conecta tu experiencia con las dos partes del cargo: contratación digital y sitio público. Habla del impacto en clientes y en el negocio, no solo de tu crecimiento."],
+ ["Describe a digital product you launched from start to finish.","Usa STAR: Situation, Task, Action, Result. Cierra con una cifra concreta (tiempo, conversión, ventas)."],
+ ["How would you reduce the drop-off rate in an online account-opening flow?","Diagnóstico con analítica web → hipótesis → A/B testing → medir. Nombra pasos concretos: menos campos, verificación de identidad más rápida, firma electrónica."],
+ ["How do you balance compliance requirements with a simple customer experience?","Muestra que ves a Cumplimiento y Fiscalía como socios. Ejemplo: involucrarlos desde el diseño, no al final."],
+ ["Tell me about a time you had a conflict with a stakeholder.","STAR. Cuenta cómo escuchaste, qué datos usaste y cómo llegaron a acuerdo. No culpes a nadie."],
+ ["How would you measure the success of the public website?","Habla de KPIs: tasa de conversión, tasa de rebote, ventas iniciadas en la web, satisfacción, disponibilidad, accesibilidad."],
+ ["How do you lead and motivate a cross-functional team?","Objetivos claros, autonomía, reconocimiento, liderar con el ejemplo. Da un caso real."],
+ ["What would you do in your first 90 days in this role?","30 días escuchar y diagnosticar, 60 días priorizar el roadmap, 90 días primeras mejoras visibles."],
+ ["Tell me about a failure and what you learned from it.","Elige un error real pero no grave. Dedica la mayor parte a lo que aprendiste y qué cambiaste."],
+ ["How do you prioritize when everything is urgent?","Impacto vs. esfuerzo, riesgo regulatorio, alineamiento con stakeholders. Di que comunicas los trade-offs."],
+ ["Where do you see digital banking in Chile in five years?","Contratación 100% digital, firma electrónica, open finance (Ley Fintec), IA en atención. Cierra con cómo prepararías al banco."],
+ ["Do you have any questions for us?","Siempre di que sí. Ej.: What are the biggest challenges for this team next year? How do you measure success in this role?"]
+];
+
+const TIPS = [
+ "Para experiencia que sigue hasta hoy usa el presente perfecto: «I have worked in digital channels since 2019», no «I am working since».",
+ "Se dice «responsible for», no «responsible of». Y «passionate about», no «passionate for».",
+ "Para porcentajes: «reduced it by 20%», no «in 20%».",
+ "En inglés de negocios la voz activa suena más potente: «My team launched…» en vez de «It was launched…».",
+ "Si no cachas una pregunta en la entrevista, pide que la repitan con calma: «Could you rephrase that?». Eso muestra seguridad.",
+ "Cierra tus respuestas con un resultado medible. Los entrevistadores se acuerdan de los números.",
+ "«Actually» significa «en realidad», no «actualmente». Para «actualmente» usa «currently».",
+ "Error típico: «assist to a meeting». Lo correcto es «attend a meeting».",
+ "Practica tu «Tell me about yourself» en voz alta hasta que te salga natural en 90 segundos.",
+ "«Eventually» significa «finalmente, con el tiempo», no «eventualmente». Para eso usa «possibly»."
+];
+
+/* ---------- Storage (per-viewer, best effort) ---------- */
+const KEY = "ingles-ejecutivo-v1";
+let S = {known:{}, days:{}, quizBest:null, rate:0.95};
+try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch(e){}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
+const pad = n => String(n).padStart(2,"0");
+const dkey = d => d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const TODAY = dkey(new Date());
+function day(k=TODAY){ const d = S.days[k] || (S.days[k] = {}); return Object.assign(d, Object.assign({cards:0,plays:0,speak:0,quiz:false,interview:false,writing:false}, d)); }
+function active(k){ const d=S.days[k]; return !!d && (d.cards>0||d.plays>0||d.speak>0||d.quiz||d.interview||d.writing); }
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const PLAY = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z"/></svg>';
+const PLAY_ES = PLAY + 'ES-CL';
+function toast(msg){ const t=document.createElement("div"); t.className="toast"; t.textContent=msg; document.body.append(t); setTimeout(()=>t.remove(),2400); }
+
+/* ---------- Voices: English (US) and Spanish (Chile) ---------- */
+let voiceEn = null, voiceEs = null, esIsChilean = false;
+function pickVoices(){
+  if (!("speechSynthesis" in window)) return;
+  const all = speechSynthesis.getVoices();
+  const en = all.filter(v => /^en[-_]/i.test(v.lang));
+  voiceEn = en.find(v => /en[-_]US/i.test(v.lang) && /natural|online|google/i.test(v.name)) || en.find(v=>/en[-_]US/i.test(v.lang)) || en[0] || null;
+  const cl = all.filter(v => /es[-_]CL/i.test(v.lang) || /chile|catalina|lorenzo/i.test(v.name));
+  esIsChilean = cl.length > 0;
+  voiceEs = cl.find(v => /natural|online/i.test(v.name)) || cl[0]
+    || all.find(v => /es[-_](419|US|MX|AR|CO|PE)/i.test(v.lang)) || all.find(v => /^es/i.test(v.lang)) || null;
+  renderVoiceNote();
+}
+function renderVoiceNote(){
+  const el = $("#voice-note"); if (!el) return;
+  if (!("speechSynthesis" in window)) { el.textContent = "Este navegador no puede reproducir voz."; return; }
+  el.innerHTML = esIsChilean
+    ? `Usando voz chilena: <b>${esc(voiceEs.name.replace(/Microsoft |Online|\(Natural\)| - .*$/g,"").trim())}</b>. Toca los botones <b>ES-CL</b> para escuchar las traducciones.`
+    : `Este navegador no trae voz chilena instalada, así que usa ${voiceEs?"otra voz en español":"ninguna voz en español"}. Para escuchar acento chileno abre la app en <b>Microsoft Edge</b>, que incluye las voces chilenas Catalina y Lorenzo.`;
+}
+if ("speechSynthesis" in window){ pickVoices(); speechSynthesis.onvoiceschanged = pickVoices; }
+function say(text, lang, rate){
+  if (!("speechSynthesis" in window)) { toast("Tu navegador no permite reproducir audio aquí."); return; }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  if (lang==="es"){ u.lang = esIsChilean ? "es-CL" : (voiceEs?.lang || "es-CL"); u.rate = 1; if (voiceEs) u.voice = voiceEs; }
+  else { u.lang = "en-US"; u.rate = rate || S.rate; if (voiceEn) u.voice = voiceEn; }
+  speechSynthesis.speak(u);
+}
+const speak = (t, r) => say(t, "en", r);
+const speakEs = t => say(t, "es");
+
+/* ---------- Tabs ---------- */
+const TABS = ["hoy","vocab","frases","hablar","quiz","entrevista","corrector"];
+function showTab(name){
+  if (!TABS.includes(name)) name = "hoy";
+  document.querySelectorAll("#tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab===name));
+  TABS.forEach(t => $("#p-"+t).hidden = t!==name);
+  if (name==="hoy") renderToday();
+  try { localStorage.setItem(KEY+"-tab", name); } catch(e){}
+}
+$("#tabs").addEventListener("click", e => { const b=e.target.closest("button"); if(b) showTab(b.dataset.tab); });
+
+/* ---------- Header + Today ---------- */
+function streak(){
+  let n=0; const d=new Date();
+  if (!active(dkey(d))) d.setDate(d.getDate()-1);
+  while (active(dkey(d))) { n++; d.setDate(d.getDate()-1); }
+  return n;
+}
+function renderStats(){
+  const s = streak();
+  $("#st-streak").textContent = s + (s===1?" día":" días");
+  $("#st-words").textContent = Object.keys(S.known).length + "/" + VOCAB.length;
+  $("#st-quiz").textContent = S.quizBest==null ? "–" : S.quizBest + "/10";
+}
+function renderToday(){
+  const d = day();
+  $("#today-date").textContent = new Date().toLocaleDateString("es-CL",{weekday:"long",day:"numeric",month:"long"});
+  const items = [
+    ["Repasa 10 tarjetas de vocabulario","vocab",d.cards>=10,`${Math.min(d.cards,10)}/10`,"10 min"],
+    ["Escucha y repite 5 frases","frases",d.plays>=5,`${Math.min(d.plays,5)}/5`,"5 min"],
+    ["Habla en inglés: 3 frases o 1 minuto libre","hablar",d.speak>=3,`${Math.min(d.speak,3)}/3`,"10 min"],
+    ["Completa un quiz","quiz",d.quiz,"","5 min"],
+    ["Responde una pregunta de entrevista","entrevista",d.interview,"","10 min"],
+    ["Escribe un párrafo en el corrector","corrector",d.writing,"","5 min"]
+  ];
+  const doneN = items.filter(i=>i[2]).length;
+  $("#plan").innerHTML = items.map(([t,tab,done,prog,min]) =>
+    `<li class="${done?"done":""}"><span class="check" aria-label="${done?"Hecho":"Pendiente"}">${done?"✓":""}</span>
+     <span class="dot" style="background:var(--${tab})"></span>
+     <div class="t"><a data-go="${tab}">${esc(t)}</a>${prog?` <span class="counter">${prog}</span>`:""}</div>
+     <span class="min">${min}</span></li>`).join("");
+  const wk = []; const base = new Date();
+  for (let i=6;i>=0;i--){ const x=new Date(base); x.setDate(base.getDate()-i);
+    wk.push(`<span><i class="${active(dkey(x))?"on":""}"></i>${x.toLocaleDateString("es-CL",{weekday:"short"}).slice(0,2)}</span>`); }
+  $("#week").innerHTML = wk.join("");
+  const n = Object.keys(S.known).length;
+  $("#dom-n").textContent = n; $("#dom-t").textContent = VOCAB.length;
+  $("#dom-bar").style.width = (n/VOCAB.length*100)+"%";
+  $("#tip").textContent = TIPS[Math.floor(Date.now()/864e5) % TIPS.length];
+  const msg = doneN===6 ? "¡Bacán! Completaste toda la rutina de hoy. Mañana seguimos." :
+    doneN>=3 ? `Llevas ${doneN} de 6. ¡Vas súper bien, sigue así!` :
+    doneN>0 ? `Llevas ${doneN} de 6. ¡Buena partida! Sigue con la que viene.` : null;
+  buddy("hoy", msg, doneN===6?"wow":"happy", doneN===6);
+  renderStats();
+}
+$("#plan").addEventListener("click", e => { const a=e.target.closest("[data-go]"); if(a) showTab(a.dataset.go); });
+$("#tip-say").innerHTML = PLAY_ES;
+$("#tip-say").onclick = () => speakEs($("#tip").textContent);
+
+/* ---------- Vocabulary ---------- */
+let vCat = "all", vIdx = 0, flipped = false;
+function deck(){ return VOCAB.filter(v => (vCat==="all"||v.cat===vCat) && (!$("#only-pending").checked || !S.known[v.id])); }
+function renderCats(){
+  $("#cats").innerHTML = [["all","Todas"],...Object.entries(CATS)].map(([k,l]) =>
+    `<button class="chip" data-cat="${k}" aria-pressed="${vCat===k}">${l}</button>`).join("");
+}
+$("#cats").addEventListener("click", e => { const b=e.target.closest("[data-cat]"); if(!b) return; vCat=b.dataset.cat; vIdx=0; flipped=false; renderCats(); renderCard(); });
+$("#only-pending").addEventListener("change", () => { vIdx=0; flipped=false; renderCard(); });
+function renderCard(){
+  const dk = deck(); const f = $("#flash");
+  const inCat = VOCAB.filter(v => vCat==="all"||v.cat===vCat);
+  const knownInCat = inCat.filter(v => S.known[v.id]).length;
+  if (!dk.length){
+    f.innerHTML = `<p class="term">¡Las dominas todas!</p><p class="muted">Desmarca «Solo pendientes» para repasarlas.</p>`;
+    $("#v-count").textContent = `${knownInCat}/${inCat.length} dominadas`; return;
+  }
+  vIdx = (vIdx + dk.length) % dk.length;
+  const v = dk[vIdx];
+  f.innerHTML = `<span class="corner pill">${esc(CATS[v.cat])}</span>${S.known[v.id]?'<span class="known">✓ DOMINADA</span>':""}
+    <div class="row" style="justify-content:center"><p class="term">${esc(v.en)}</p><button class="icon-btn" data-say="term" aria-label="Escuchar término">${PLAY}</button></div>
+    ${flipped ? `<div class="row" style="justify-content:center"><p class="es">${esc(v.es)}</p><button class="icon-btn es" data-say="es" aria-label="Escuchar traducción con voz chilena">${PLAY_ES}</button></div>
+      <div class="row" style="justify-content:center;flex-wrap:nowrap"><p class="ex">“${esc(v.ex)}”</p><button class="icon-btn" data-say="ex" aria-label="Escuchar ejemplo">${PLAY}</button></div>`
+      : `<p class="muted">Toca para ver la traducción y un ejemplo</p>`}`;
+  $("#v-count").textContent = `${vIdx+1} / ${dk.length} · ${knownInCat}/${inCat.length} dominadas`;
+}
+$("#flash").addEventListener("click", e => {
+  const dk = deck(); if (!dk.length) return;
+  const v = dk[vIdx]; const s = e.target.closest("[data-say]");
+  if (s){ e.stopPropagation(); const k=s.dataset.say; if(k==="es") speakEs(v.es); else speak(k==="term" ? v.en.replace(/^to /,"") : v.ex); return; }
+  flipped = !flipped; renderCard();
+});
+$("#flash").addEventListener("keydown", e => { if (e.key===" "||e.key==="Enter"){ e.preventDefault(); flipped=!flipped; renderCard(); } });
+function countCard(){ day().cards++; save(); renderStats(); }
+$("#v-prev").onclick = () => { vIdx--; flipped=false; renderCard(); };
+$("#v-next").onclick = () => { vIdx++; flipped=false; renderCard(); };
+$("#v-again").onclick = () => { const dk=deck(); if(!dk.length) return; delete S.known[dk[vIdx].id]; countCard(); vIdx++; flipped=false; renderCard(); buddy("vocab","Tranqui, esa la repasamos de nuevo más rato.","think"); };
+$("#v-know").onclick = () => {
+  const dk=deck(); if(!dk.length) return; S.known[dk[vIdx].id]=1; countCard();
+  if (!$("#only-pending").checked) vIdx++;
+  flipped=false; renderCard();
+  const n = day().cards;
+  buddy("vocab", n===10 ? "¡Diez tarjetas hoy! Meta cumplida, bacán." : ["¡Buena!","¡Filete!","¡Eso!","¡Vas volando!"][n%4], "happy", true);
+};
+
+/* ---------- Phrases ---------- */
+function renderRate(){ document.querySelectorAll("[data-rate]").forEach(b => b.setAttribute("aria-pressed", Number(b.dataset.rate)===S.rate)); }
+document.querySelectorAll("[data-rate]").forEach(b => b.onclick = () => { S.rate=Number(b.dataset.rate); save(); renderRate(); });
+$("#phrases").innerHTML = Object.entries(PHRASES).map(([g,list]) =>
+  `<div class="ph-group"><span class="label">${esc(g)}</span>${list.map(([en,es]) =>
+   `<div class="ph"><button class="icon-btn" data-ph="${esc(en)}" aria-label="Escuchar frase en inglés">${PLAY}</button>
+    <div class="t"><p class="en">${esc(en)}</p><p class="es">${esc(es)}</p></div>
+    <button class="icon-btn es" data-phes="${esc(es)}" aria-label="Escuchar traducción con voz chilena">${PLAY_ES}</button></div>`).join("")}</div>`).join("");
+$("#phrases").addEventListener("click", e => {
+  const es = e.target.closest("[data-phes]"); if (es) { speakEs(es.dataset.phes); return; }
+  const b = e.target.closest("[data-ph]"); if (!b) return;
+  speak(b.dataset.ph); const d = day(); d.plays++; save(); renderStats();
+  if (d.plays===5) buddy("frases","¡Cinco frases! Meta del día lista. Si quieres, sigue un poco más.","wow",true);
+});
+
+/* ---------- Speaking ---------- */
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+let micBlocked = !SR, rec = null, recBtn = null;
+function micOff(){ micBlocked = true;
+  $("#mic-line").innerHTML = "El navegador no permite usar el micrófono dentro de esta página. Usa el dictado de tu equipo, funciona igual de bien:";
+  ["#rd-rec","#fr-rec"].forEach(s => $(s).hidden = true);
+}
+if (micBlocked) micOff();
+function toggleRec(btn, ta){
+  if (rec) { rec.stop(); return; }
+  try {
+    rec = new SR(); rec.lang = "en-US"; rec.interimResults = true; rec.continuous = true;
+    const base = ta.value ? ta.value.trim()+" " : "";
+    rec.onresult = ev => { let t=""; for (let i=0;i<ev.results.length;i++) t += ev.results[i][0].transcript; ta.value = base + t.trim(); ta.dispatchEvent(new Event("input")); };
+    rec.onerror = ev => { if (["not-allowed","service-not-allowed","audio-capture","network"].includes(ev.error)) { micOff(); toast("Micrófono bloqueado aquí. Usa el dictado: Win + H o el micrófono del teclado."); } };
+    rec.onend = () => { rec = null; btn.textContent = "● Grabar"; btn.classList.remove("rec-on"); };
+    rec.start(); recBtn = btn; btn.textContent = "■ Parar"; btn.classList.add("rec-on");
+  } catch(e){ rec = null; micOff(); }
+}
+$("#rd-rec").onclick = () => toggleRec($("#rd-rec"), $("#rd-said"));
+$("#fr-rec").onclick = () => { if (!tStart) startTimer(); toggleRec($("#fr-rec"), $("#fr-said")); };
+
+let spMode = "leer", rdIdx = 0, frIdx = 0;
+document.querySelectorAll("[data-mode]").forEach(b => b.onclick = () => {
+  spMode = b.dataset.mode;
+  document.querySelectorAll("[data-mode]").forEach(x => x.setAttribute("aria-pressed", x===b));
+  $("#sp-leer").hidden = spMode!=="leer"; $("#sp-libre").hidden = spMode!=="libre"; $("#fr-out").hidden = spMode!=="libre";
+});
+function renderRead(){
+  const [t, tip] = READ[rdIdx];
+  $("#rd-count").textContent = `Frase ${rdIdx+1} de ${READ.length}`;
+  $("#rd-target").textContent = t; $("#rd-tip").textContent = tip;
+  $("#rd-said").value = ""; $("#rd-out").innerHTML = "";
+}
+$("#rd-play").innerHTML = PLAY; $("#rd-play").onclick = () => speak(READ[rdIdx][0]);
+$("#rd-next").onclick = () => { rdIdx = (rdIdx+1) % READ.length; renderRead(); };
+const norm = s => s.toLowerCase().replace(/[’']/g,"'").replace(/[^a-z0-9'%\s-]/g," ").replace(/-/g," ").split(/\s+/).filter(Boolean);
+const NUM = {"3":"three","30":"thirty","90":"ninety","%":"percent"};
+function alignWords(target, said){
+  const T = norm(target), H = norm(said).map(w => NUM[w] || w.replace(/^(\d+)%$/, (m,n)=>NUM[n]||n));
+  const m=T.length, n=H.length, L=Array.from({length:m+1},()=>new Array(n+1).fill(0));
+  for (let i=m-1;i>=0;i--) for (let j=n-1;j>=0;j--) L[i][j] = T[i]===H[j] ? L[i+1][j+1]+1 : Math.max(L[i+1][j],L[i][j+1]);
+  const hit = new Array(m).fill(false); let i=0,j=0;
+  while(i<m&&j<n){ if(T[i]===H[j]){hit[i]=true;i++;j++;} else if(L[i+1][j]>=L[i][j+1]) i++; else j++; }
+  return {T, hit, score: m ? Math.round(hit.filter(Boolean).length/m*100) : 0};
+}
+$("#rd-check").onclick = () => {
+  const said = $("#rd-said").value.trim();
+  if (!said) { toast("Primero di la frase (con Grabar o con el dictado)."); return; }
+  const raw = READ[rdIdx][0].split(/\s+/);
+  const r = alignWords(READ[rdIdx][0], said);
+  // map normalized words back to display words (same split, punctuation kept)
+  let k = 0; const shown = raw.map(w => { const parts = norm(w); const ok = parts.map(()=> r.hit[k++]).every(Boolean); return `<span class="${ok?"hit":"miss"}">${esc(w)}</span>`; });
+  const misses = r.T.filter((w,i)=>!r.hit[i]);
+  const d = day(); d.speak++; save(); renderStats();
+  const mood = r.score>=90 ? "wow" : r.score>=70 ? "happy" : "think";
+  const msg = r.score>=90 ? "¡La raja! Se entendió perfecto. Pasa a la siguiente." :
+    r.score>=70 ? "¡Bien! Se entendió casi todo. Repite las palabras en rojo un par de veces." :
+    "Pucha, varias palabras no se entendieron. Escucha el modelo, repítelo lento y vuelve a intentarlo.";
+  buddy("hablar", msg, mood, r.score>=90);
+  $("#rd-out").innerHTML = `<div class="fb card" style="padding:16px">
+    <div class="score"><b>${r.score}%</b><span class="pill">palabras que se entendieron bien</span></div>
+    <div><span class="label">Así lo escuchó la app</span><div class="words">${shown.join("")}</div></div>
+    ${misses.length ? `<p class="muted">Practica: <b>${esc(misses.join(", "))}</b>. Las palabras en rojo no se reconocieron, casi siempre por pronunciación. Toca ▶ y repítelas imitando el audio.</p>` : `<p class="muted">Todas las palabras se reconocieron. ¡Excelente pronunciación!</p>`}
+  </div>`;
+};
+
+let tStart = 0, tTimer = null, tElapsed = 0;
+function fmtT(s){ return Math.floor(s/60)+":"+pad(Math.floor(s%60)); }
+function startTimer(){
+  tStart = Date.now(); tElapsed = 0; $("#fr-start").textContent = "Detener cronómetro";
+  $("#fr-said").focus();
+  tTimer = setInterval(() => { tElapsed = (Date.now()-tStart)/1000; $("#fr-timer").textContent = fmtT(tElapsed);
+    if (tElapsed >= 60 && tElapsed < 61) buddy("hablar","¡Un minuto! Puedes terminar tu idea y pedir el feedback.","wow"); }, 250);
+}
+function stopTimer(){ if (tTimer) clearInterval(tTimer); tTimer = null; tStart = 0; $("#fr-start").textContent = "Iniciar cronómetro"; }
+$("#fr-start").onclick = () => tTimer ? stopTimer() : startTimer();
+function renderFree(){ $("#fr-q").textContent = FREE[frIdx]; $("#fr-said").value=""; $("#fr-timer").textContent="0:00"; tElapsed=0; stopTimer(); countFree(); if (sample) $("#fr-out").innerHTML=""; }
+$("#fr-play").innerHTML = PLAY; $("#fr-play").onclick = () => speak(FREE[frIdx]);
+$("#fr-next").onclick = () => { frIdx = (frIdx+1) % FREE.length; renderFree(); };
+function countFree(){ const n = ($("#fr-said").value.trim().match(/\S+/g)||[]).length; $("#fr-count").textContent = `${n} palabras`; return n; }
+$("#fr-said").addEventListener("input", countFree);
+$("#fr-send").onclick = () => {
+  if (rec) rec.stop();
+  const t = $("#fr-said").value.trim(); const n = countFree();
+  if (n < 10) { toast("Habla un poco más (al menos dos o tres oraciones)."); return; }
+  const secs = Math.round(tElapsed); stopTimer();
+  const wpm = secs >= 10 ? Math.round(n / (secs/60)) : null;
+  const prompt = `You are a friendly English speaking coach from Chile helping a Chilean banking professional (native Spanish speaker, intermediate-to-advanced English) prepare to interview for "Head of Digital Contracting and Public Website" at a bank in Chile.
+They answered this prompt OUT LOUD and the text below is an automatic speech-to-text transcript of what they said: "${FREE[frIdx]}"
+Transcript: """${t.slice(0,4000)}"""
+Speaking time: ${secs ? secs+" seconds" : "not measured"}; ${wpm ? "speed about "+wpm+" words per minute (natural range 110-160)" : "speed not measured"}.
+
+Ignore punctuation and capitalization (the transcript adds them). Words that look wrong, out of place or in Spanish were probably mispronounced or misheard: use them as pronunciation hints.
+Write every explanation in Chilean Spanish: close, warm and professional, you may use mild Chilean expressions like "bacán", "ojo con", "al tiro", "harto".
+Reply with only a JSON object with these keys:
+"score": integer 1-10 for how well they communicated orally,
+"level": CEFR estimate, one of "A2","B1","B2","C1","C2",
+"fluency_es": 1-2 sentences in Spanish about fluency, speed and filler words (um, eh, like),
+"pronunciation": array of up to 4 objects {"heard": word as transcribed, "probably": the word they likely meant, "tip": short pronunciation tip in Spanish},
+"errors": array of up to 5 objects {"original": exact wrong fragment, "fix": corrected fragment, "why": short explanation in Spanish},
+"improved": a natural spoken version a senior manager would say, max 110 words, same facts, no invented numbers,
+"feedback_es": 2 sentences in Spanish with the single most important thing to improve next time.`;
+  runAI({btn:$("#fr-send"), stop:$("#fr-stop"), out:$("#fr-out"), prompt, sec:"hablar",
+    render: r => {
+      const pr = Array.isArray(r.pronunciation) ? r.pronunciation.slice(0,4) : [];
+      return feedbackHTML(r, "",
+        `${wpm?`<div class="row"><span class="pill">${secs} s</span><span class="pill">${wpm} palabras/min</span><span class="pill">${n} palabras</span></div>`:""}
+         ${r.fluency_es?`<div><span class="label">Fluidez</span><p style="margin-top:4px">${esc(r.fluency_es)}</p></div>`:""}
+         ${pr.length?`<div><span class="label">Pronunciación a revisar</span><ul class="errs" style="margin-top:8px">${pr.map(x=>
+           `<li><del>${esc(x.heard)}</del> → <ins>${esc(x.probably)}</ins> <button class="icon-btn" style="width:30px;height:30px;vertical-align:middle" data-word="${esc(x.probably)}" aria-label="Escuchar palabra">${PLAY}</button><p class="why">${esc(x.tip)}</p></li>`).join("")}</ul></div>`:""}`);
+    },
+    onDone: () => { const d = day(); d.speak = Math.max(d.speak+1, 3); save(); renderStats();
+      $("#fr-out").querySelectorAll("[data-word]").forEach(b => b.onclick = () => speak(b.dataset.word, 0.8)); }
+  });
+};
+
+/* ---------- Quiz ---------- */
+let Q = null;
+const core = t => t.replace(/^to /,"");
+const shuffle = a => { a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+function makeQuiz(){
+  return shuffle(VOCAB).slice(0,10).map((v,i) => {
+    const others = shuffle(VOCAB.filter(o => o.id!==v.id)).slice(0,3);
+    const blank = core(v.en); const re = new RegExp(blank.replace(/[.*+?^${}()|[\]\\\/]/g,"\\$&"),"i");
+    if (i%2===0 && re.test(v.ex)) return {kind:"Completa la frase", prompt:v.ex.replace(re,"_____"), answer:blank, options:shuffle([blank,...others.map(o=>core(o.en))]), ex:v.ex};
+    return {kind:"¿Cómo se dice en inglés?", prompt:v.es, answer:v.en, options:shuffle([v.en,...others.map(o=>o.en)]), ex:v.ex};
+  });
+}
+function startQuiz(){ Q = {items:makeQuiz(), i:0, score:0, answered:false}; renderQuiz(); buddy("quiz"); }
+function renderQuiz(){
+  const el = $("#quiz");
+  if (!Q){
+    el.innerHTML = `<span class="label">10 preguntas · 5 minutos</span><h2 style="margin-top:4px">Quiz de vocabulario del cargo</h2>
+      <p class="muted" style="margin-top:6px">Mezcla traducción y completar frases con términos de contratación digital, web, banca y liderazgo.</p>
+      <div class="row" style="margin-top:16px"><button class="btn primary" id="qz-start">Empezar quiz</button></div>`;
+    $("#qz-start").onclick = startQuiz; return;
+  }
+  if (Q.i >= Q.items.length){
+    const best = S.quizBest==null || Q.score > S.quizBest;
+    if (best) S.quizBest = Q.score; day().quiz = true; save(); renderStats();
+    buddy("quiz", Q.score>=9 ? "¡Seco! Pasa al simulador de entrevista." : Q.score>=6 ? "¡Bien! Repasa en las tarjetas las que se te fueron." : "No pasa nada. Dale a las tarjetas unos días y vuelve a intentarlo.", Q.score>=9?"wow":Q.score>=6?"happy":"sad", Q.score>=9);
+    el.innerHTML = `<span class="label">Resultado</span><div class="score" style="margin-top:4px"><b>${Q.score}/10</b>${best?'<span class="pill">Nuevo récord</span>':""}</div>
+      <div class="row" style="margin-top:16px"><button class="btn primary" id="qz-again">Otro quiz</button></div>`;
+    $("#qz-again").onclick = startQuiz; return;
+  }
+  const q = Q.items[Q.i];
+  el.innerHTML = `<div class="row" style="justify-content:space-between"><span class="label">${esc(q.kind)}</span><span class="counter">${Q.i+1}/10 · ${Q.score} correctas</span></div>
+    <p class="qtext"><b>${esc(q.prompt)}</b></p>
+    <div class="opts">${q.options.map(o=>`<button class="opt" data-o="${esc(o)}">${esc(o)}</button>`).join("")}</div>
+    <div id="qz-fb" style="margin-top:14px"></div>`;
+  el.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+    if (Q.answered) return; Q.answered = true;
+    const right = b.dataset.o === q.answer; if (right) Q.score++;
+    el.querySelectorAll(".opt").forEach(x => { x.disabled=true; if (x.dataset.o===q.answer) x.classList.add("right"); });
+    if (!right) b.classList.add("wrong");
+    buddy("quiz", right ? ["¡Bacán!","¡Correcto!","¡Eso po!","¡Impecable!"][Q.i%4] : `Uy, casi. Era «${q.answer}».`, right?"happy":"sad", right);
+    $("#qz-fb").innerHTML = `<div class="row" style="justify-content:space-between;flex-wrap:nowrap"><p class="muted" style="min-width:0">“${esc(q.ex)}”</p>
+      <button class="icon-btn" id="qz-say" aria-label="Escuchar ejemplo">${PLAY}</button></div>
+      <div class="row" style="margin-top:12px"><button class="btn primary" id="qz-next">${Q.i===9?"Ver resultado":"Siguiente →"}</button></div>`;
+    $("#qz-say").onclick = () => speak(q.ex);
+    $("#qz-next").onclick = () => { Q.i++; Q.answered=false; renderQuiz(); };
+    $("#qz-next").focus();
+  });
+}
+
+/* ---------- AI (Claude) ---------- */
+let sample = null, aiChecked = false;
+const AI = [["#a-send","#a-out"],["#w-send","#w-out"],["#fr-send","#fr-out"]];
+(async () => {
+  try { sample = window.claude ? await window.claude.use("sample") : null; } catch(e){ sample = null; }
+  aiChecked = true;
+  if (!sample) AI.forEach(([b,o]) => { $(b).disabled = true; $(o).innerHTML = noAI(); });
+})();
+function noAI(){ return `<div class="notice">La corrección automática no está disponible en esta vista. Igual puedes practicar: di o escribe tu respuesta, léela en voz alta y compárala con la guía.</div>`; }
+function errCopy(code){
+  return ({not_granted:"No se autorizó el uso de Claude en esta página, así que la corrección automática quedó desactivada.",
+    sampling_disabled:"Claude no está disponible para esta cuenta.",
+    rate_limited:"Hiciste muchas consultas seguidas. Espera un ratito y vuelve a intentarlo.",
+    session_expired:"Se cerró tu sesión. Vuelve a entrar y reintenta.",
+    invalid_json:"La respuesta llegó incompleta. Presiona el botón de nuevo.",
+    refused:"No se pudo evaluar este texto. Prueba reformulándolo."})[code] || "Hubo un problema de conexión. Inténtalo de nuevo.";
+}
+const HIDE = ["not_granted","sampling_disabled","not_declared","capability_disabled","capability_removed"];
+
+function feedbackHTML(r, extra, top){
+  const errs = Array.isArray(r.errors) ? r.errors.slice(0,8) : [];
+  return `<div class="card fb">
+    <div class="score"><b>${esc(r.score ?? "–")}/10</b>${r.level?`<span class="pill">Nivel estimado ${esc(r.level)}</span>`:""}</div>
+    ${top||""}
+    ${r.feedback_es?`<div class="row" style="flex-wrap:nowrap;align-items:flex-start"><p style="flex:1;min-width:0">${esc(r.feedback_es)}</p><button class="icon-btn es" data-speakes="feedback_es" aria-label="Escuchar comentario con voz chilena">${PLAY_ES}</button></div>`:""}
+    ${errs.length?`<div><span class="label">Errores corregidos</span><ul class="errs" style="margin-top:8px">${errs.map(x=>
+      `<li><del>${esc(x.original)}</del> → <ins>${esc(x.fix)}</ins><p class="why">${esc(x.why)}</p></li>`).join("")}</ul></div>`
+      :`<p class="muted">Sin errores gramaticales importantes. ¡Muy bien!</p>`}
+    ${r.corrected?`<div><span class="label">Tu texto corregido</span><p style="margin-top:6px">${esc(r.corrected)}</p></div>`:""}
+    ${r.improved?`<div class="better"><div class="row" style="justify-content:space-between;flex-wrap:nowrap"><span class="label">Versión de nivel ejecutivo</span>
+      <button class="icon-btn" data-speak="improved" aria-label="Escuchar versión mejorada">${PLAY}</button></div>
+      <p style="margin-top:6px">${esc(r.improved)}</p><p class="muted" style="font-size:.9rem;margin-top:8px">Escúchala y repítela en voz alta tres veces.</p></div>`:""}
+    ${r.tip_es?`<p><b>Consejo:</b> ${esc(r.tip_es)}</p>`:""}
+    ${extra||""}
+  </div>`;
+}
+
+async function runAI({btn, stop, out, prompt, onDone, render, sec}){
+  if (!sample) { out.innerHTML = noAI(); return; }
+  const ctl = new AbortController();
+  btn.disabled = true; stop.hidden = false; stop.onclick = () => ctl.abort();
+  buddy(sec, "Déjame revisarlo con calma… dame unos segundos.", "think");
+  out.innerHTML = `<div class="card"><p class="status">Revisando tu inglés…</p></div>`;
+  try {
+    const r = (await sample.json(prompt, {signal: ctl.signal, cache:false})) || {};
+    out.innerHTML = render(r);
+    out.querySelectorAll("[data-speak]").forEach(b => b.onclick = () => speak(r[b.dataset.speak]));
+    out.querySelectorAll("[data-speakes]").forEach(b => b.onclick = () => speakEs(r[b.dataset.speakes]));
+    const s = Number(r.score)||0;
+    buddy(sec, s>=8 ? "¡Bacán! Te salió muy bien. Mira los detalles para pulirlo." : s>=6 ? "¡Vas bien! Revisa las correcciones y vuelve a intentarlo." : "Harto que mejorar, pero así se aprende. Mira las correcciones con calma.", s>=8?"wow":s>=6?"happy":"think", s>=8);
+    onDone(r);
+  } catch(e){
+    buddy(sec);
+    if (e && e.code === "cancelled") { out.innerHTML = ""; }
+    else if (e && HIDE.includes(e.code)) { sample = null; out.innerHTML = `<div class="notice">${esc(errCopy(e.code))}</div>`; btn.disabled = true; stop.hidden = true; return; }
+    else out.innerHTML = `<div class="notice">${esc(errCopy(e && e.code))}</div>`;
+  }
+  btn.disabled = false; stop.hidden = true;
+}
+const CL = `Write every explanation in Chilean Spanish: close, warm and professional; you may use mild Chilean expressions such as "bacán", "ojo con", "al tiro", "harto".`;
+
+/* ---------- Interview ---------- */
+let qIdx = 0, curQ = QUESTIONS[0][0];
+$("#q-select").innerHTML = QUESTIONS.map(([q],i)=>`<option value="${i}">${i+1}. ${esc(q.length>60?q.slice(0,58)+"…":q)}</option>`).join("");
+function setQuestion(i, custom){
+  qIdx = i; curQ = custom || QUESTIONS[i][0];
+  $("#q-select").value = String(i);
+  $("#q-text").textContent = curQ;
+  $("#q-hint").textContent = custom ? "Repregunta de la entrevistadora: responde breve y concreto, con un ejemplo." : QUESTIONS[i][1];
+  $("#answer").value = ""; countWords();
+  if (aiChecked && sample) $("#a-out").innerHTML = "";
+}
+$("#q-play").innerHTML = PLAY;
+$("#q-play").onclick = () => speak(curQ);
+$("#q-select").onchange = e => setQuestion(Number(e.target.value));
+$("#q-random").onclick = () => { let n; do { n=Math.floor(Math.random()*QUESTIONS.length); } while(n===qIdx); setQuestion(n); };
+function countWords(){ const n = ($("#answer").value.trim().match(/\S+/g)||[]).length; $("#a-count").textContent = `${n} palabras · ideal 80–150`; }
+$("#answer").addEventListener("input", countWords);
+$("#a-send").onclick = () => {
+  const a = $("#answer").value.trim();
+  if (a.split(/\s+/).length < 8) { toast("Escribe al menos un par de oraciones para recibir feedback."); return; }
+  const prompt = `You are an experienced hiring manager at a large retail bank in Chile, interviewing a Chilean candidate (native Spanish speaker, intermediate-to-advanced English) for the role "Head of Digital Contracting and Public Website" (Jefe Digital Contracting y Web Pública). The candidate is practicing English for this interview.
+
+Interview question: ${curQ}
+Candidate's answer: """${a.slice(0,4000)}"""
+
+Evaluate the English (grammar, vocabulary, fluency, professional tone) and the content (structure, concrete results, relevance to the role). If parts are in Spanish, translate them in "corrected" and mention it.
+${CL}
+Reply with only a JSON object with these keys:
+"score": integer 1-10 overall,
+"level": CEFR estimate of the English, one of "A2","B1","B2","C1","C2",
+"corrected": the answer with only grammar and word-choice errors fixed, keeping the candidate's ideas,
+"improved": a stronger version a senior bank manager would say aloud, natural spoken English, max 130 words, keep the candidate's facts and do not invent numbers,
+"errors": array of up to 6 objects {"original": exact wrong fragment, "fix": corrected fragment, "why": short explanation in Spanish},
+"feedback_es": 2-3 sentences in Spanish about content, structure and what to improve,
+"followup": one natural follow-up question in English the interviewer would ask next.`;
+  runAI({btn:$("#a-send"), stop:$("#a-stop"), out:$("#a-out"), prompt, sec:"entrevista",
+    render: r => feedbackHTML(r, r.followup ? `<div><span class="label">Repregunta de la entrevistadora</span>
+      <div class="row" style="margin-top:6px;flex-wrap:nowrap"><p class="question" style="font-size:1.1rem">${esc(r.followup)}</p>
+      <button class="icon-btn" data-speak="followup" aria-label="Escuchar repregunta">${PLAY}</button></div>
+      <div class="row" style="margin-top:10px"><button class="btn primary" id="fu-go">Responder repregunta</button></div></div>` : ""),
+    onDone: r => { day().interview = true; save(); renderStats();
+      const go = $("#fu-go"); if (go) go.onclick = () => { setQuestion(qIdx, String(r.followup)); window.scrollTo({top:0,behavior:"smooth"}); $("#answer").focus(); }; }
+  });
+};
+
+/* ---------- Writing corrector ---------- */
+$("#w-text").addEventListener("input", () => { $("#w-sample-tag").hidden = true; });
+$("#w-send").onclick = () => {
+  const t = $("#w-text").value.trim();
+  if (t.length < 15) { toast("Escribe al menos una oración."); return; }
+  const prompt = `You are an English coach for a Chilean banking professional (native Spanish speaker, intermediate-to-advanced English) preparing for the role "Head of Digital Contracting and Public Website" at a bank in Chile. Review this text they wrote for work (an email, chat message or interview pitch):
+
+"""${t.slice(0,5000)}"""
+
+${CL}
+Reply with only a JSON object with these keys:
+"score": integer 1-10 for the quality of the English,
+"level": CEFR estimate, one of "A2","B1","B2","C1","C2",
+"corrected": the text with only grammar, spelling and word-choice errors fixed,
+"improved": a more natural, concise, professional version in business English (keep the facts, no invented numbers),
+"errors": array of up to 8 objects {"original": exact wrong fragment, "fix": corrected fragment, "why": short explanation in Spanish, say when it is a typical Spanish-speaker error},
+"feedback_es": 1-2 sentences in Spanish on tone and clarity,
+"tip_es": one short, memorable grammar or vocabulary tip in Spanish based on their most important error.`;
+  runAI({btn:$("#w-send"), stop:$("#w-stop"), out:$("#w-out"), prompt, sec:"corrector", render: r => feedbackHTML(r),
+    onDone: () => { day().writing = true; save(); renderStats(); } });
+};
+
+/* ---------- Boot ---------- */
+renderBuddies(); renderCats(); renderCard(); renderRate(); renderQuiz(); setQuestion(0); renderRead(); renderFree(); renderVoiceNote(); renderToday();
+let startTab = (location.hash||"").slice(1);
+if (!TABS.includes(startTab)) { try { startTab = localStorage.getItem(KEY+"-tab") || "hoy"; } catch(e){ startTab = "hoy"; } }
+showTab(startTab);
+try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { renderBuddies(); renderToday(); }); } catch(e){}
+</script>
+
+</body></html>
